@@ -133,7 +133,29 @@ export default function Home() {
         </div>
       </section>
 
-     
+      {/* Most Popular */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-[#0f172a] font-display">⭐ Most Popular</h2>
+          <Link to="/products" className="text-sm text-[#0f4c81] font-semibold hover:underline">View all →</Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {popular.slice(0,8).map(p => <ProductCard key={p.id} product={p} />)}
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="bg-[#f0f4ff] border border-[#bfdbfe] rounded-2xl p-8 md:p-12 text-center">
+        <p className="text-xs font-bold text-[#0f4c81] uppercase tracking-widest mb-2">Newsletter</p>
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-[#0f172a] mb-2">Get Exclusive Deals in Your Inbox</h2>
+        <p className="text-[#475569] text-sm mb-6">Join 50,000+ shoppers and never miss a sale again.</p>
+        <div className="flex gap-0 max-w-md mx-auto">
+          <input type="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 border border-[#bfdbfe] border-r-0 rounded-l-xl text-sm focus:outline-none focus:border-[#0f4c81] bg-white" />
+          <button className="bg-[#0f4c81] hover:bg-[#0a3560] text-white px-6 py-3 rounded-r-xl text-sm font-bold transition-colors">
+            Subscribe
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
