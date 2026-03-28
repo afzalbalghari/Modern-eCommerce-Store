@@ -65,6 +65,74 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Categories grid */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-[#0f172a] font-display">Shop by Category</h2>
+          <Link to="/products" className="text-sm text-[#0f4c81] font-semibold hover:underline">View all →</Link>
+        </div>
+        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-3">
+          {CATEGORIES.map((c,i) => (
+            <Link key={c.id} to={`/products?cat=${c.id}`}
+              className={`flex flex-col items-center gap-2 p-3 bg-white border border-[#e2e5ea] rounded-xl hover:border-[#0f4c81]/40 hover:shadow-md transition-all text-center group animate-fadeInUp stagger-${Math.min(i+1,6)}`}>
+              <span className="text-2xl group-hover:scale-110 transition-transform">{c.icon}</span>
+              <span className="text-[11px] font-semibold text-[#0f172a] leading-tight">{c.label}</span>
+              <span className="text-[9px] text-[#94a3b8]">{c.count} items</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Today's Deals */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-bold text-[#0f172a] font-display">🔥 Today's Hot Deals</h2>
+            <span className="bg-[#dc2626] text-white text-xs font-bold px-2.5 py-1 rounded-full animate-pulse-soft">LIVE</span>
+          </div>
+          <Link to="/products?deal=1" className="text-sm text-[#0f4c81] font-semibold hover:underline">See all deals →</Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {featured.map((p,i) => <ProductCard key={p.id} product={p} />)}
+        </div>
+      </section>
+
+      {/* Banner strip */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-gradient-to-r from-[#ff6b2b] to-[#f59e0b] rounded-2xl p-7 flex items-center justify-between overflow-hidden relative">
+          <div>
+            <p className="text-white/80 text-sm font-medium mb-1">Special Offer</p>
+            <h3 className="font-display text-2xl font-bold text-white mb-3">Get 20% Off<br/>Your First Order</h3>
+            <Link to="/register" className="bg-white text-[#ff6b2b] font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-[#fff7ed] transition-colors inline-block">
+              Sign Up Now
+            </Link>
+          </div>
+          <span className="text-7xl opacity-30 absolute right-5">🎁</span>
+        </div>
+        <div className="bg-gradient-to-r from-[#0a3560] to-[#1a6db5] rounded-2xl p-7 flex items-center justify-between overflow-hidden relative">
+          <div>
+            <p className="text-white/80 text-sm font-medium mb-1">Download App</p>
+            <h3 className="font-display text-2xl font-bold text-white mb-3">Shop Faster<br/>on Mobile</h3>
+            <div className="flex gap-2">
+              <button className="bg-white/20 hover:bg-white/30 text-white font-semibold text-xs px-4 py-2 rounded-xl transition-colors">App Store</button>
+              <button className="bg-white/20 hover:bg-white/30 text-white font-semibold text-xs px-4 py-2 rounded-xl transition-colors">Google Play</button>
+            </div>
+          </div>
+          <span className="text-7xl opacity-30 absolute right-5">📱</span>
+        </div>
+      </div>
+
+      {/* New Arrivals */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-[#0f172a] font-display">✨ New Arrivals</h2>
+          <Link to="/products?badge=new" className="text-sm text-[#0f4c81] font-semibold hover:underline">View all →</Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {newArr.map(p => <ProductCard key={p.id} product={p} />)}
+        </div>
+      </section>
+
      
     </div>
   );
