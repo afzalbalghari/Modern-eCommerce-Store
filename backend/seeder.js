@@ -313,6 +313,151 @@
  ];
  
  // ── Import data ───────────────────────────────────────────
+ const importData = async () => {
+   try {
+     // Clear existing data
+     await Order.deleteMany();
+     await Product.deleteMany();
+     await User.deleteMany();
+     console.log("✓ Database cleared".yellow);
+ 
+     // Create users
+     const createdUsers = await User.create(users);
+     const adminUser    = createdUsers.find((u) => u.role === "admin");
+     const regularUsers = createdUsers.filter((u) => u.role === "user");
+     console.log(`✓ ${createdUsers.length} users seeded`.green);
+ 
+     // Create products
+     const productData    = getProducts(adminUser._id);
+     const createdProducts = await Product.create(productData);
+     console.log(`✓ ${createdProducts.length} products seeded`.green);
+ 
+     // Create sample orders
+     const sampleOrders = [
+       {
+         user:            regularUsers[0]._id,
+         orderItems: [
+           {
+             product:    createdProducts[0]._id,
+             name:       createdProducts[0].name,
+             image:      createdProducts[0].image,
+             price:      createdProducts[0].price,
+             qty:        1,
+             totalPrice: createdProducts[0].price,
+           },
+         ],
+         shippingAddress: {
+           fullName: regularUsers[0].name,
+           address:  "456 Oak Ave",
+           city:     "New York",
+           zip:      "10001",
+           country:  "USA",
+           email:    regularUsers[0].email,
+           phone:    regularUsers[0].phone,
+         },
+         paymentMethod: "card",
+         itemsPrice:    createdProducts[0].price,
+         shippingPrice: 0,
+         taxPrice:      parseFloat((createdProducts[0].price * 0.08).toFixed(2)),
+         totalPrice:    parseFloat((createdProducts[0].price * 1.08).toFixed(2)),
+         status:        "delivered",
+         isPaid:        true,
+         paidAt:        new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+         isDelivered:   true,
+         deliveredAt:   new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+         trackingNumber: "TRK-28471-US",
+       },
+       {
+         user:            regularUsers[1]._id,
+         orderItems: [
+           {
+             product:    createdProducts[3]._id,
+             name:       createdProducts[3].name,
+             image:      createdProducts[3].image,
+             price:      createdProducts[3].price,
+             qty:        2,
+             totalPrice: createdProducts[3].price * 2,
+           },
+         ],
+         shippingAddress: {
+           fullName: regularUsers[1].name,
+           address:  "789 Baker Street",
+           city:     "London",
+           zip:      "NW1 6XE",
+           country:  "UK",
+           email:    regularUsers[1].email,
+           phone:    regularUsers[1].phone,
+         },
+         paymentMethod: "paypal",
+         itemsPrice:    createdProducts[3].price * 2,
+         shippingPrice: 0,
+         taxPrice:      parseFloat((createdProducts[3].price * 2 * 0.08).toFixed(2)),
+         totalPrice:    parseFloat((createdProducts[3].price * 2 * 1.08).toFixed(2)),
+         status:        "shipped",
+         isPaid:        true,
+         paidAt:        new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+         trackingNumber: "TRK-28106-UK",
+       },
+       {
+         user:            regularUsers[2]._id,
+         orderItems: [
+           {
+             product:    createdProducts[4]._id,
+             name:       createdProducts[4].name,
+             image:      createdProducts[4].image,
+             price:      createdProducts[4].price,
+             qty:        1,
+             totalPrice: createdProducts[4].price,
+           },
+           {
+             product:    createdProducts[9]._id,
+             name:       createdProducts[9].name,
+             image:      createdProducts[9].image,
+             price:      createdProducts[9].price,
+             qty:        1,
+             totalPrice: createdProducts[9].price,
+           },
+         ],
+         shippingAddress: {
+           fullName: regularUsers[2].name,
+           address:  "12 Gulshan Ave",
+           city:     "Lahore",
+           zip:      "54000",
+           country:  "Pakistan",
+           email:    regularUsers[2].email,
+           phone:    regularUsers[2].phone,
+         },
+         paymentMethod: "cod",
+         itemsPrice:    createdProducts[4].price + createdProducts[9].price,
+         shippingPrice: 9.99,
+         taxPrice:      parseFloat(((createdProducts[4].price + createdProducts[9].price) * 0.08).toFixed(2)),
+         totalPrice:    parseFloat(((createdProducts[4].price + createdProducts[9].price) * 1.08 + 9.99).toFixed(2)),
+         status:        "processing",
+       },
+     ];
+ 
+     await Order.create(sampleOrders);
+     console.log(`✓ ${sampleOrders.length} orders seeded`.green);
+ 
+     console.log("\n" + "=".repeat(50).green);
+     console.log("  ✓ Database seeded successfully!".green.bold);
+     console.log("=".repeat(50).green);
+     console.log("\n  Admin credentials:".cyan);
+     console.log("  Email:    admin@shopnexus.com".white);
+     console.log("  Password: admin123".white);
+     console.log("\n  User credentials:".cyan);
+     console.log("  Email:    alice@example.com".white);
+     console.log("  Password: password123\n".white);
+ 
+     process.exit(0);
+   } catch (err) {
+     console.error(`\n✗ Seeder Error: ${err.message}`.red.bold);
+     console.error(err);
+     process.exit(1);
+   }
+ };
+ 
+ 
  
  // ── Run ───────────────────────────────────────────────────
  if (process.argv[2] === "--import") {
