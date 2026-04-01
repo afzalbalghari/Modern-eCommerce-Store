@@ -457,7 +457,19 @@
    }
  };
  
- 
+ // ── Destroy data ──────────────────────────────────────────
+ const destroyData = async () => {
+   try {
+     await Order.deleteMany();
+     await Product.deleteMany();
+     await User.deleteMany();
+     console.log("\n  ✓ All data destroyed!".red.bold);
+     process.exit(0);
+   } catch (err) {
+     console.error(`\n✗ Error: ${err.message}`.red.bold);
+     process.exit(1);
+   }
+ };
  
  // ── Run ───────────────────────────────────────────────────
  if (process.argv[2] === "--import") {
