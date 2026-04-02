@@ -1,28 +1,33 @@
-// server.js
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const connectDB = require("./config/db");
+const path        = require("path");
+const express     = require("express");
+const dotenv      = require("dotenv");
+const morgan      = require("morgan");
+const colors      = require("colors");
+const cors        = require("cors");
+const helmet      = require("helmet");
+const hpp         = require("hpp");
+const rateLimit   = require("express-rate-limit");
+const mongoSanitize = require("express-mongo-sanitize");
+const cookieParser  = require("cookie-parser");
 
-dotenv.config();
+// Load env vars
+dotenv.config({ path: "./.env" });
+
+const connectDB      = require("./config/db");
+const errorHandler   = require("./middleware/error");
+
+// Route files
+const authRoutes    = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes   = require("./routes/orderRoutes");
+const userRoutes    = require("./routes/userRoutes");
+
+// Connect to DB
 connectDB();
 
 const app = express();
 
-app.use(express.json());
-app.use(cors());
+// ── Body parser ───────────────────────────────────────────
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
 
-// Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/products", require("./routes/productRoutes"));
-app.use("/api/orders", require("./routes/orderRoutes"));
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT}`)
-);
+module.exports = server;
