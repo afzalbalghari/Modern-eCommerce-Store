@@ -76,6 +76,27 @@ app.use(cors({
 }));
 
 // ── Static files (uploaded images) ───────────────────────
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use(express.static(path.join(__dirname, "public")));
+
+// ── Health check ──────────────────────────────────────────
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "ShopNexus API is running",
+    environment: process.env.NODE_ENV,
+    timestamp:   new Date().toISOString(),
+    version:     "1.0.0",
+  });
+});
+
+// ── Mount routers ─────────────────────────────────────────
+app.use("/api/auth",     authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders",   orderRoutes);
+app.use("/api/users",    userRoutes);
+
+// ── 404 handler ───────────────────────────────────────────
 
 
 module.exports = server;
