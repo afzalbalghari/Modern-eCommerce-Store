@@ -30,5 +30,19 @@ API.interceptors.response.use(
   }
 );
 
+// ═════════════════════════════════════════════════════════
+//  AUTH
+// ═════════════════════════════════════════════════════════
+export const authAPI = {
+  register:        (data)          => API.post("/auth/register", data),
+  login:           (data)          => API.post("/auth/login", data),
+  logout:          ()              => API.get("/auth/logout"),
+  getMe:           ()              => API.get("/auth/me"),
+  updateDetails:   (data)          => API.put("/auth/updatedetails", data),
+  updatePassword:  (data)          => API.put("/auth/updatepassword", data),
+  forgotPassword:  (email)         => API.post("/auth/forgotpassword", { email }),
+  resetPassword:   (token, data)   => API.put(`/auth/resetpassword/${token}`, data),
+  toggleWishlist:  (productId)     => API.put(`/auth/wishlist/${productId}`),
+};
 
 export default API;
