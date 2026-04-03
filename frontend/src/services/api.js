@@ -45,4 +45,35 @@ export const authAPI = {
   toggleWishlist:  (productId)     => API.put(`/auth/wishlist/${productId}`),
 };
 
+// ═════════════════════════════════════════════════════════
+//  PRODUCTS
+// ═════════════════════════════════════════════════════════
+export const productAPI = {
+  /** GET /api/products
+   *  Params: category, price[gte], price[lte], sort, page, limit, search, badge
+   */
+  getAll:          (params)        => API.get("/products", { params }),
+  getOne:          (id)            => API.get(`/products/${id}`),
+  getTop:          (limit = 8)     => API.get("/products/top", { params: { limit } }),
+  getFeatured:     ()              => API.get("/products/featured"),
+  getByCategory:   (cat)           => API.get(`/products/category/${cat}`),
+  search:          (q)             => API.get("/products/search", { params: { q } }),
+  getStats:        ()              => API.get("/products/stats"),
+
+  // Admin
+  create:          (data)          => API.post("/products", data),
+  update:          (id, data)      => API.put(`/products/${id}`, data),
+  remove:          (id)            => API.delete(`/products/${id}`),
+  uploadPhoto:     (id, formData)  => API.put(`/products/${id}/photo`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  }),
+
+  // Reviews
+  addReview:       (id, data)      => API.post(`/products/${id}/reviews`, data),
+  updateReview:    (id, rid, data) => API.put(`/products/${id}/reviews/${rid}`, data),
+  deleteReview:    (id, rid)       => API.delete(`/products/${id}/reviews/${rid}`),
+};
+
+
+
 export default API;
