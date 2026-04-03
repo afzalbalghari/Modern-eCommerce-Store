@@ -105,6 +105,7 @@ export const userAPI = {
   remove:          (id)            => API.delete(`/users/${id}`),
 };
 
-
+// ── Health check ──────────────────────────────────────────
+export const healthCheck = () => API.get("/health");
 
 export default API;
