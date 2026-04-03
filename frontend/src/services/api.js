@@ -74,6 +74,21 @@ export const productAPI = {
   deleteReview:    (id, rid)       => API.delete(`/products/${id}/reviews/${rid}`),
 };
 
+// ═════════════════════════════════════════════════════════
+//  ORDERS
+// ═════════════════════════════════════════════════════════
+export const orderAPI = {
+  create:          (data)          => API.post("/orders", data),
+  getMyOrders:     (params)        => API.get("/orders/mine", { params }),
+  getOne:          (id)            => API.get(`/orders/${id}`),
+  pay:             (id, data)      => API.put(`/orders/${id}/pay`, data),
+  cancel:          (id, reason)    => API.put(`/orders/${id}/cancel`, { reason }),
+
+  // Admin
+  getAll:          (params)        => API.get("/orders", { params }),
+  getStats:        ()              => API.get("/orders/stats/summary"),
+  updateStatus:    (id, data)      => API.put(`/orders/${id}/status`, data),
+};
 
 
 export default API;
