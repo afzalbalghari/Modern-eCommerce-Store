@@ -11,11 +11,10 @@ function StarRating({ rating = 0, size = "sm" }) {
       {[1, 2, 3, 4, 5].map((s) => (
         <svg
           key={s}
-          className={`${w} ${
-            s <= Math.round(rating)
+          className={`${w} ${s <= Math.round(rating)
               ? "text-amber-400"
               : "text-[#e2e5ea]"
-          }`}
+            }`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -39,8 +38,8 @@ export default function ProductCard({ product, view = "grid" }) {
   const discount =
     product?.originalPrice > product?.price
       ? Math.round(
-          (1 - product.price / product.originalPrice) * 100
-        )
+        (1 - product.price / product.originalPrice) * 100
+      )
       : 0;
 
   const handleAdd = (e) => {
@@ -60,11 +59,11 @@ export default function ProductCard({ product, view = "grid" }) {
         to={`/product/${product._id}`}
         className="flex gap-4 bg-white border border-[#e2e5ea] rounded-xl p-4 hover:shadow-md hover:border-[#0f4c81]/30 transition-all group"
       >
-        <div className="w-36 h-36 flex-shrink-0 rounded-xl overflow-hidden bg-[#f7f8fa]">
+        <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
           <img
             src={imageSrc}
             alt={product?.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
