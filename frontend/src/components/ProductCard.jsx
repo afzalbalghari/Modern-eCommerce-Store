@@ -59,11 +59,11 @@ export default function ProductCard({ product, view = "grid" }) {
         to={`/product/${product._id}`}
         className="flex gap-4 bg-white border border-[#e2e5ea] rounded-xl p-4 hover:shadow-md hover:border-[#0f4c81]/30 transition-all group"
       >
-        <div className="relative h-52 w-full overflow-hidden bg-gray-100 rounded-lg">
+        <div className="relative aspect-[4/3] bg-gray-100 flex items-center justify-center">
           <img
             src={imageSrc}
             alt={product?.name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            className="max-h-full max-w-full object-contain object-center p-2 transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
