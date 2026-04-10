@@ -12,8 +12,8 @@ function StarRating({ rating = 0, size = "sm" }) {
         <svg
           key={s}
           className={`${w} ${s <= Math.round(rating)
-              ? "text-amber-400"
-              : "text-[#e2e5ea]"
+            ? "text-amber-400"
+            : "text-[#e2e5ea]"
             }`}
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -59,7 +59,7 @@ export default function ProductCard({ product, view = "grid" }) {
         to={`/product/${product._id}`}
         className="flex gap-4 bg-white border border-[#e2e5ea] rounded-xl p-4 hover:shadow-md hover:border-[#0f4c81]/30 transition-all group"
       >
-        <div className="relative aspect-square overflow-hidden bg-gray-100">
+        <div className="relative h-52 w-full overflow-hidden bg-gray-100 rounded-lg">
           <img
             src={imageSrc}
             alt={product?.name}
