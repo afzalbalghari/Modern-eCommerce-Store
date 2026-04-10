@@ -59,7 +59,7 @@ export default function ProductCard({ product, view = "grid" }) {
         to={`/product/${product._id}`}
         className="flex gap-4 bg-white border border-[#e2e5ea] rounded-xl p-4 hover:shadow-md hover:border-[#0f4c81]/30 transition-all group"
       >
-        <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <div className="relative aspect-square overflow-hidden bg-gray-100">
           <img
             src={imageSrc}
             alt={product?.name}
