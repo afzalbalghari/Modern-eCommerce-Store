@@ -6,7 +6,7 @@ A full-stack modern eCommerce web application built with a powerful MERN stack a
 
 ## 🚀 Live Demo
 
-> ()
+> https://modern-e-commerce-store-rosy.vercel.app/
 
 ---
 
